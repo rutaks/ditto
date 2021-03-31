@@ -4,7 +4,20 @@ import { Switch, Route } from "react-router-dom";
 const PublicRoute = React.lazy(() => import("./routes/PublicRoute"));
 
 const App = () => (
-  <Suspense fallback={<div>Finding the meaning of life...</div>}>
+  <Suspense
+    fallback={
+      <div
+        style={{
+          margin: "auto",
+          width: "50%",
+          paddingTop: "10%",
+          textAlign: "center",
+        }}
+      >
+        <h1>Finding the meaning of life...</h1>
+      </div>
+    }
+  >
     <Switch>
       <Route path="/to-dos">
         <PublicRoute />
