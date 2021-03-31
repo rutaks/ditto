@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 const PublicRoute = React.lazy(() => import("./routes/PublicRoute"));
 
@@ -19,6 +19,9 @@ const App = () => (
     }
   >
     <Switch>
+      <Route exact path="/">
+        <Redirect to="/to-dos/all" />
+      </Route>
       <Route path="/to-dos">
         <PublicRoute />
       </Route>

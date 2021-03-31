@@ -2,14 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { NODE_ENV } from "./utils/constants";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
+    {console.log(NODE_ENV)}
     <QueryClientProvider client={queryClient}>
+      {NODE_ENV === "development" && (
+        <ReactQueryDevtools initialIsOpen={false} />
+      )}
       <Router>
         <App />
       </Router>
