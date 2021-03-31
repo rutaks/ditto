@@ -19,8 +19,8 @@ const TextInput = ({
         name={name}
         defaultValue={defaultValue || ""}
         type={type}
-        onChange={handleChange(name)}
-        onClick={setFieldTouched(name)}
+        onChange={handleChange}
+        onBlur={setFieldTouched}
         class={`form-control ${error && "is-invalid"}`}
       />
       {error && <div class="invalid-feedback">{error}</div>}

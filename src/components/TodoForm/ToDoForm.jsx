@@ -2,30 +2,33 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { TextInput, Button } from "..";
 import { useHistory } from "react-router-dom";
+import { getError } from "../../utils/formik.util";
 
-const ToDoForm = ({ mode }) => {
+const ToDoForm = ({ mode, formikProps }) => {
   const history = useHistory();
+
   return (
     <Fragment>
       <TextInput
-        label="Title"
-        name="title"
-        handleChange={() => {}}
-        setFieldTouched={() => {}}
         type="text"
-        error="This an error"
+        name="title"
+        label="Title"
+        error={getError(formikProps, "title")}
+        handleChange={formikProps.handleChange("title")}
+        setFieldTouched={() => formikProps.setFieldTouched("title")}
       />
       <TextInput
-        label="Author"
-        name="author"
-        handleChange={() => {}}
-        setFieldTouched={() => {}}
         type="text"
+        name="author"
+        label="Author"
+        error={getError(formikProps, "author")}
+        handleChange={formikProps.handleChange("author")}
+        setFieldTouched={() => formikProps.setFieldTouched("author")}
       />
       <Button
-        type={`btn-block btn-${mode === "CREATE" ? "primary" : "warning"}`}
-        onClick={() => {}}
         label="Submit"
+        type={`btn-block btn-${mode === "CREATE" ? "primary" : "warning"}`}
+        onClick={() => formikProps.handleSubmit()}
       />
       <Button
         label="Go Back"
@@ -38,6 +41,7 @@ const ToDoForm = ({ mode }) => {
 
 ToDoForm.propTypes = {
   mode: PropTypes.oneOf(["CREATE", "EDIT"]),
+  formikProps: PropTypes.object,
 };
 
 export default ToDoForm;
