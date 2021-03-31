@@ -2,7 +2,7 @@ import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import ToDoForm from "../../components/TodoForm/ToDoForm";
+import { TodoForm } from "../../components";
 import { createToDo } from "../../api/todo.api";
 import { useHistory } from "react-router-dom";
 
@@ -35,7 +35,7 @@ const CreateToDo = () => {
           }}
         >
           {(formikProps) => (
-            <ToDoForm
+            <TodoForm
               mode="CREATE"
               formikProps={formikProps}
               isSubmitting={createToDoHook.isLoading}

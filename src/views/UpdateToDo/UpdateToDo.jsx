@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import { CircleSpinner } from "react-spinners-kit";
 import { useHistory, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import ToDoForm from "../../components/TodoForm/ToDoForm";
+import { TodoForm } from "../../components";
 import { getToDo, modifyToDo } from "../../api/todo.api";
 
 const validationSchema = Yup.object().shape({
@@ -53,7 +53,7 @@ const UpdateToDo = () => {
           }}
         >
           {(formikProps) => (
-            <ToDoForm
+            <TodoForm
               mode="EDIT"
               formikProps={formikProps}
               isSubmitting={modifyToDoHook.isLoading}
