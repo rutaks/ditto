@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import { CircleSpinner } from "react-spinners-kit";
 import TableHeading from "../TableHeading";
@@ -6,6 +7,8 @@ import TableRow from "../TableRow";
 // import Button from "../Button";
 
 const Table = ({ items, isLoading, onDeleteItem, onModifyItem }) => {
+  const { t } = useTranslation();
+
   if (isLoading)
     return (
       <div
@@ -24,7 +27,7 @@ const Table = ({ items, isLoading, onDeleteItem, onModifyItem }) => {
   return (
     <Fragment>
       <table class="table table-hover">
-        <TableHeading columns={["ID", "Title", "Author", "Action"]} />
+        <TableHeading columns={["ID", t("title"), t("author"), t("action")]} />
         <tbody>
           {items.map((item, index) => (
             <TableRow

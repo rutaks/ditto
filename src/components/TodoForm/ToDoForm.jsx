@@ -1,24 +1,26 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import { TextInput, Button } from "..";
 import { useHistory } from "react-router-dom";
 import { getError } from "../../utils/formik.util";
 
 const ToDoForm = ({ mode, formikProps, isSubmitting, error, hasError }) => {
   const history = useHistory();
+  const { t } = useTranslation();
 
   return (
     <Fragment>
       {hasError && (
         <div class="alert alert-dismissible alert-danger">
           <strong>Oh snap!</strong>
-          {` Something happened: ${error?.message}`}
+          {` ${t("somethingHappened")} ${error?.message}`}
         </div>
       )}
       <TextInput
         type="text"
         name="title"
-        label="Title"
+        label={t("title")}
         defaultValue={formikProps.values.title}
         error={getError(formikProps, "title")}
         handleChange={formikProps.handleChange("title")}
@@ -27,7 +29,7 @@ const ToDoForm = ({ mode, formikProps, isSubmitting, error, hasError }) => {
       <TextInput
         type="text"
         name="author"
-        label="Author"
+        label={t("author")}
         defaultValue={formikProps.values.author}
         error={getError(formikProps, "author")}
         handleChange={formikProps.handleChange("author")}
@@ -35,13 +37,13 @@ const ToDoForm = ({ mode, formikProps, isSubmitting, error, hasError }) => {
       />
       <Button
         isLoading={isSubmitting}
-        label="Submit"
+        label={t("submit")}
         type={`btn-block btn-${mode === "CREATE" ? "primary" : "warning"}`}
         onClick={() => formikProps.handleSubmit()}
       />
       <Button
         isDisabled={isSubmitting}
-        label="Go Back"
+        label={t("goBack")}
         type="btn btn-block btn-secondary"
         onClick={() => history.goBack()}
       />

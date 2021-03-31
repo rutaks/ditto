@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -6,14 +7,14 @@ import { TodoForm } from "../../components";
 import { createToDo } from "../../api/todo.api";
 import { useHistory } from "react-router-dom";
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Please provide a title for the todo"),
-  author: Yup.string().required("Please provide the author for the todo"),
-});
-
 const CreateToDo = () => {
   const history = useHistory();
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required(t("titleRequired")),
+    author: Yup.string().required(t("authorRequired")),
+  });
   const createToDoHook = useMutation(createToDo, {
     onSuccess: () => {
       queryClient.invalidateQueries("toDos");
@@ -25,7 +26,7 @@ const CreateToDo = () => {
     <div>
       <br />
       <br />
-      <h1>Create a ToDo</h1>
+      <h1>{t("createTodo")}</h1>
       <div class="form-group">
         <Formik
           initialValues={{ title: "", author: "" }}
