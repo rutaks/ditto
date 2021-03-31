@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { TextInput, Button } from "..";
 import { useHistory } from "react-router-dom";
 
-const ToDoForm = (props) => {
+const ToDoForm = ({ mode }) => {
   const history = useHistory();
   return (
     <Fragment>
@@ -22,7 +22,11 @@ const ToDoForm = (props) => {
         setFieldTouched={() => {}}
         type="text"
       />
-      <Button type="btn-block btn-primary" onClick={() => {}} label="Submit" />
+      <Button
+        type={`btn-block btn-${mode === "CREATE" ? "primary" : "warning"}`}
+        onClick={() => {}}
+        label="Submit"
+      />
       <Button
         label="Go Back"
         type="btn btn-block btn-secondary"
@@ -32,6 +36,8 @@ const ToDoForm = (props) => {
   );
 };
 
-ToDoForm.propTypes = {};
+ToDoForm.propTypes = {
+  mode: PropTypes.oneOf(["CREATE", "EDIT"]),
+};
 
 export default ToDoForm;
