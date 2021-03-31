@@ -7,6 +7,7 @@ const { routes: toDoRoutes } = routes.toDo;
 
 const ViewToDos = React.lazy(() => import("../../views/ViewToDos"));
 const CreateToDo = React.lazy(() => import("../../views/CreateToDo"));
+const UpdateToDo = React.lazy(() => import("../../views/UpdateToDo"));
 
 const PublicRoute = () => (
   <Fragment>
@@ -32,6 +33,9 @@ const PublicRoute = () => (
           </Route>
           <Route exact path={toDoRoutes.create.route}>
             <CreateToDo />
+          </Route>
+          <Route exact path={toDoRoutes.modify.route}>
+            <UpdateToDo />
           </Route>
         </Switch>
       </Container>

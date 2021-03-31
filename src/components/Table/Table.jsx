@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { CircleSpinner } from "react-spinners-kit";
 import TableHeading from "../TableHeading";
 import TableRow from "../TableRow";
-import Button from "../Button";
+// import Button from "../Button";
 
-const Table = ({ items, isLoading }) => {
+const Table = ({ items, isLoading, onDeleteItem, onModifyItem }) => {
   if (isLoading)
     return (
       <div
@@ -27,13 +27,19 @@ const Table = ({ items, isLoading }) => {
         <TableHeading columns={["ID", "Title", "Author", "Action"]} />
         <tbody>
           {items.map((item, index) => (
-            <TableRow key={index} item={item} index={index} />
+            <TableRow
+              key={index}
+              item={item}
+              index={index}
+              onDelete={(id) => onDeleteItem(id)}
+              onModify={(id) => onModifyItem(id)}
+            />
           ))}
         </tbody>
       </table>
-      <div className="d-flex justify-content-center">
+      {/* <div className="d-flex justify-content-center">
         <Button label="Load More" type="btn-outline-primary" />
-      </div>
+      </div> */}
     </Fragment>
   );
 };
@@ -41,6 +47,8 @@ const Table = ({ items, isLoading }) => {
 Table.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
   isLoading: PropTypes.bool,
+  onDeleteItem: PropTypes.func,
+  onModifyItem: PropTypes.func,
 };
 
 export default Table;

@@ -1,13 +1,24 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import ToDoForm from "../../components/TodoForm/ToDoForm";
+import { createToDo } from "../../api/todo.api";
+import { useHistory } from "react-router-dom";
+
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required("Please provide a title for the todo"),
+  author: Yup.string().required("Please provide the author for the todo"),
+});
 
 const CreateToDo = () => {
-  const validationSchema = Yup.object().shape({
-    title: Yup.string().required("Please provide a title for the todo"),
-    author: Yup.string().required("Please provide the author for the todo"),
+  const history = useHistory();
+  const queryClient = useQueryClient();
+  const createToDoHook = useMutation(createToDo, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("toDos");
+      history.goBack();
+    },
   });
 
   return (
@@ -19,12 +30,18 @@ const CreateToDo = () => {
         <Formik
           initialValues={{ title: "", author: "" }}
           validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log(values);
+          onSubmit={(data) => {
+            createToDoHook.mutate(data);
           }}
         >
           {(formikProps) => (
-            <ToDoForm mode="CREATE" formikProps={formikProps} />
+            <ToDoForm
+              mode="CREATE"
+              formikProps={formikProps}
+              isSubmitting={createToDoHook.isLoading}
+              error={createToDoHook.error}
+              hasError={createToDoHook.isError}
+            />
           )}
         </Formik>
       </div>

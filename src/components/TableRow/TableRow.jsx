@@ -1,7 +1,7 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
-const TableRow = ({ item, index }) => {
+const TableRow = ({ item, index, onDelete, onModify }) => {
   return (
     <tr class={index % 2 === 0 && "table-active"}>
       <th scope="row">{index + 1}</th>
@@ -9,13 +9,18 @@ const TableRow = ({ item, index }) => {
       <td>{item.author}</td>
       <td>
         <div class="row">
-          <button type="button" class="btn btn-warning">
+          <button
+            onClick={() => onModify(item.id)}
+            type="button"
+            class="btn btn-warning"
+          >
             Edit
           </button>
-          <button type="button" class="btn btn-primary">
-            View Details
-          </button>
-          <button type="button" class="btn btn-danger">
+          <button
+            onClick={() => onDelete(item.id)}
+            type="button"
+            class="btn btn-danger"
+          >
             Remove
           </button>
         </div>
@@ -25,7 +30,10 @@ const TableRow = ({ item, index }) => {
 };
 
 TableRow.propTypes = {
-  // columns: PropTypes.arrayOf(PropTypes.string),
+  item: PropTypes.object,
+  index: PropTypes.number,
+  onDelete: PropTypes.func,
+  onModify: PropTypes.func,
 };
 
 export default TableRow;
