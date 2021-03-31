@@ -1,10 +1,26 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import { CircleSpinner } from "react-spinners-kit";
 import TableHeading from "../TableHeading";
 import TableRow from "../TableRow";
 import Button from "../Button";
 
-const Table = ({ items }) => {
+const Table = ({ items, isLoading }) => {
+  if (isLoading)
+    return (
+      <div
+        style={{
+          margin: "auto",
+          width: "50%",
+          paddingTop: "10%",
+          textAlign: "center",
+        }}
+        className="d-flex justify-content-center"
+      >
+        <CircleSpinner color="#858585" />
+      </div>
+    );
+
   return (
     <Fragment>
       <table class="table table-hover">
@@ -24,6 +40,7 @@ const Table = ({ items }) => {
 
 Table.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
+  isLoading: PropTypes.bool,
 };
 
 export default Table;

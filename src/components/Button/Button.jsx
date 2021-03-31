@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { ImpulseSpinner } from "react-spinners-kit";
 
 const Button = ({ onClick, isDisabled, label, isLoading, type }) => {
   return (
@@ -9,7 +10,13 @@ const Button = ({ onClick, isDisabled, label, isLoading, type }) => {
       type="button"
       className={`btn ${type}`}
     >
-      {isLoading ? "Loading..." : label}
+      {isLoading ? (
+        <div className="d-flex justify-content-center">
+          <ImpulseSpinner frontColor="#ffffff" />{" "}
+        </div>
+      ) : (
+        label
+      )}
     </button>
   );
 };
