@@ -13,12 +13,12 @@ const toDos = [
   },
 ];
 
-const ViewToDos = (props) => {
+const ViewToDos = () => {
   return (
     <Fragment>
       <br />
       <br />
-      <h1>To dos</h1>
+      <h1>To dos ({toDos.length})</h1>
       <Table items={toDos} />
     </Fragment>
   );
